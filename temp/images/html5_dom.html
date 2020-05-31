@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .red {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <ul>
+        <li class="red">1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+    <button id="myButton">点击</button> -->
+    <p data-name="clannad_cc"></p>
+</body>
+<script>
+    window.onload = function() {
+        // document.querySelector('#myButton').onclick = function() {
+        //     document.querySelector('li').classList.add("red")
+        //     document.querySelector('li').className = 'underline' //会覆原来的样式
+        //     document.querySelector('li').classList.remove("red")
+        //     document.querySelector('li').classList.toggle("red")
+        //     console.log(document.querySelector('li').classList.contains('red'));
+        // }
+        let p = document.querySelector('p');
+        let vlaue = p.dataset['name'];
+        console.log(vlaue)
+    }
+</script>
+
+</html>

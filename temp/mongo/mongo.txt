@@ -1,0 +1,89 @@
+1. mongo 启动命令 
+mongod -dbpath "F:\MongoDB\data\db"
+
+2.进入mongo 
+在bin文件夹下输入mongo
+
+3. 查询数据库
+show dbs
+
+4.创建数据库，mongodb是隐士创建的 直接使用use 数据库名;
+
+5.创建表 
+db.createCollection('demo');
+
+6.查看数据库
+show tables
+
+7.向表插入数据
+db.demoTable.insert({name: 'zhangsan',age: 50});
+
+8.查询表中全部数据
+db.demoTable.find();
+
+9.删除表
+db.demoTable.drop();
+
+
+
+
+
+
+基本操作增删改查
+
+增加： 
+db.demoTable.insert({name: 'zhan',age: 'nan'})
+增加多个：
+db.demoTable.insert([{name: 'lisi',age: 25},{name: 'zhangsan',age: 23}])
+
+删除：
+db.demoTable.remove({name: 'lisi'})// 删除name为lisi的文档
+db.demoTable.remove() //表示删除整个表
+db.demoTable.remove({name: 'lisi'},true) //只删一行，默认为false
+
+更新：
+db.demoTable.update({name: 'zhan'},{name: 'zhao'})//把name为zhan的改成zhao 注意默认只改一行。这种方式会将新的文档覆盖掉旧的文档。
+db.demoTable.update({name: 'wangwu'},{$set: {name: 'dalang'}})//这种方式不会改变其它属性
+
+把下面这一行数据修改。
+db.demoTable.insert({name: 'wukong',jinggu: true,sex: 'm',age: 500})
+修改时的赋值表达式
+
+db.demoTable.update({name: 'wukong'},{
+    $set: {name: 'dffh'},//更新为
+    $unset: {jinggu:1},//删除这个属性
+    $rename: {sex: 'gender'},//key值重命名
+    $inc:{age:1} //增长1
+})
+
+修改后的数据为
+{ "_id" : ObjectId("5ec9218621c49d615f23c695"), "name" : "dffh", "age" : 501, "gender" : "m" }
+
+将修改多行，把匹配到的字段都修改掉
+db.demoTable.update({age:45},{$set:{age: 33}},{multi: true})
+
+upsert 
+db.demoTable.update({age:89},{$set:{age: 22}},{upsert: true})
+如果有 age = 89的文档将被修改
+如果没有，则直接插入此新文档
+
+
+$setOnInsert 当upsert为true时，并且发生了insert操作时，可以补充字段。
+db.demoTable.update({age:11},{$set:{age: 22},$setOnInsert:{gender:'male'}},{up
+sert: true});
+
+结果：
+{ "_id" : ObjectId("5ec92d7d97ac88db2389edab"), "age" : 22, "gender" : "male" }
+
+
+
+
+
+
+
+查询
+例子1：db.demoTable.find({},{name: 1})
+查询所有文档，name列。
+
+例子2：db.demoTable.find({gender: 'male'},{name: 1,_id:0})
+查询所有gender为male的文档中的name属性。

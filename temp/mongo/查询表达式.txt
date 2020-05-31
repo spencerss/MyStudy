@@ -1,0 +1,41 @@
+不等于
+例子：
+db.demoTable.find({name: {$ne:'zhao'}})//查询名字不为zhao
+
+大于
+$gt
+例子：
+db.demoTable.find({age: {$gt: 25}}) //查询年龄大于25的
+
+小于等于
+$lte
+db.demoTable.find({age: {$lte: 25}}) //查询年龄大于25的
+
+$in
+db.demoTable.find({age: {$in:[22,33]}}) //查询年龄等于22,等于33
+
+$nin
+
+$and
+db.demoTable.find({$and: [{age:{$gte:22},age: {$lte:33}}]})//查询年龄小于等于22，大于等于33
+
+$nin
+db.demoTable.find({age: {$nin:[22,33]}}) //查询年龄不等于22,不等于33
+
+$nor
+无对应项，指 所有列举条件都不成功则为真
+db.demoTable.find({$nor: [{age:22},{age:33}]})//查询年龄不等于22,不等于33
+
+$mod取余
+db.demoTable.find({age:{$mod:[5,0]}})
+
+$exists
+db.demoTable.find({gender: {$exists: 1}}) //返回文档中gender存在的
+
+
+$type
+db.demoTable.find({age: {$type: 2}})//查询age类型为字符串的类型
+
+$all
+db.demoTable.find({hobby: {$all: ['b','c']}})//查询hobby数组里面有b,c的文档
+

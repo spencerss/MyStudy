@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>likeVue</title>
+</head>
+
+<body>
+    <div id="root">
+        <p>{{name}}</p>
+        <p>{{age}}</p>
+    </div>
+</body>
+<script>
+    let data = {
+        name: 'clannad_cc',
+        age: 20
+    }
+    let template = document.querySelector('#root');
+    let reg = /\{\{(.+?)\}\}/
+
+    function compiler(template) {
+        let childNodes = template.childNodes;
+        for (let index = 0; index < childNodes.length; index++) {
+            const element = childNodes[index];
+            if (element.nodeType === 3) { //1为元素节点,3为文本节点
+                let txt = element.nodeValue; //该属性只有文本节点才有意义。
+                txt.replace(reg, function(_, g) { //每匹配成功一次，就会执行回调函数。
+                    console.log(data[g]) //name age
+                    element.nodeValue = data[g]
+                })
+            } else if (element.nodeType === 1) {
+                compiler(element);
+            }
+        }
+    }
+    let generateNode = template.cloneNode(true) //dom是引用类型
+    console.log(generateNode);
+    compiler(template);
+    console.log(template);
+</script>
+
+</html>

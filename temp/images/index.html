@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>H5地理位置Demo</title>
+</head>
+
+<body>
+    <!-- <small> 2019-07-26 </small> 水的化学式为H
+    <sub>2</sub>O 请计算5
+    <sup>2</sup>平方
+    <del>200元</del> 现价 <ins>100元</ins>
+    <progress value="60" max="100">完成60%</progress>
+    <strong>后盾人</strong>专注WEB开发技术，不断更新<em>视频教程</em> 请认真在后盾人学习以下语言 <mark>PHP</mark>、<mark>JavaScript</mark> 下而是来自某一个大叔，对失败的认知
+    <blockquote cite="https://www.houdunren.com">
+        在坚持的人面前，失败终将被踏过。
+    </blockquote> -->
+    <!-- 邮箱 -->
+    <input type="email">
+    <!-- 数字 -->
+    <input type="tel"> // h会弹起移动端的数字键盘。
+    <!-- 搜索 -->
+    <input type="search"> //输入文字，输入框带有清空功能。
+    <!-- 范围 -->
+    <input type="range" max="100" min="0" value="50"> //value不写默认50
+    <!-- 颜色 -->
+    <input type="color">
+    <!-- 日期 -->
+    <input type="date">
+    <!-- 时间 -->
+    <input type="time">
+    <!-- 只要safari浏览器支持 -->
+    <input type="datetime">
+    <!-- autofocus自动聚焦 -->
+    <!-- autocomplete自动完成，on: 打开，off: 关闭 
+1.必须成功提交过，提交过才会有记录。
+2.当前添加autocomplete的元素必须要有name属性 -->
+    <form action="" id="myForm">
+        <input type="text" autocomplete="on" name="userName">
+        <!-- required: 必须输入，pattern：正则表达式 -->
+        <input type="tel" required pattern="^(\+86)1\d{10}$" autofocus id="myInput">
+        <input type="submit" value="提交">
+        <!-- multiple可以输入多个邮箱，以逗号隔开 -->
+        <input type="email" name="email" multiple>
+    </form>
+    form="myForm" 表示提交到对应表单
+    <input type="text" form="myForm" name="address" autofocus>
+</body>
+<script type="text/javascript">
+    let myInput = document.querySelector('#myInput');
+    myInput.oninput = function() {
+        console.log(`oninput:${this.value}`)
+    }
+    myInput.onkeyup = function() {
+            console.log(`onkeyup:${this.value}`)
+        }
+        // 点提交的时候才触发
+    myInput.oninvalid = function() {
+        this.setCustomValidity('请输入合法的11位手机号码') //提示信息
+    }
+</script>
+
+</html>

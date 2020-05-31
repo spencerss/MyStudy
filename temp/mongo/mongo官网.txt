@@ -1,0 +1,6 @@
+$eq
+db.getCollection('demoTable').find({qty: {$eq: 15}})
+对象
+db.getCollection('demoTable').find( { "item.name": { $eq: "ab" } } )
+
+数组

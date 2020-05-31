@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>domToVirtualDom</title>
+</head>
+
+<body>
+    <div id="root">
+        <p name="clannad_cc">{{name}}</p>
+        <p>{{age}}</p>
+    </div>
+</body>
+<script>
+    let data = {
+        name: 'clannad_cc',
+        age: 20
+    }
+    class VNode {
+        constructor(tag, data, value, type) {
+            this.tag = tag && tag.toLowerCase(); //tag存在才执行
+            this.data = data;
+            this.value = value;
+            this.type = type;
+            this.children = [];
+        }
+        appendChild(vnode) {
+            this.children.push(vnode);
+        }
+    }
+
+    function getVNode(node) {
+        let nodeType = node.nodeType;
+        let vnode = null;
+        if (nodeType === 1) {
+            let nodeName = node.nodeName;
+            let attrs = node.attributes;
+            let attrObj = {};
+            for (let index = 0; index < attrs.length; index++) {
+                const element = attrs[index];
+                attrObj[element.nodeName] = element.nodeValue;
+            }
+            vnode = new VNode(nodeName, attrObj, undefined, nodeType);
+            let childNodes = node.childNodes;
+            for (let index = 0; index < childNodes.length; index++) {
+                const element = childNodes[index];
+                vnode.appendChild(getVNode(element))
+            }
+        } else if (nodeType === 3) {
+            vnode = new VNode(undefined, undefined, node.nodeValue, nodeType);
+        }
+        return vnode;
+    }
+
+    let root = document.querySelector('#root');
+    let vroot = getVNode(root);
+
+    console.log(vroot)
+</script>
+
+</html>
